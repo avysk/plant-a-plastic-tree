@@ -46,23 +46,40 @@ void main() {
   elt.max_v = "0.1";
 }
 
+// XXX see comment in renderTreeImpl
+bool startedRender = false;
+
 void renderTree(e) {
   // Change the button text
   var elt = querySelector("#go");
   elt.text = "Wait!";
+  elt.disabled = true;
   var c = querySelector("#c");
   CanvasRenderingContext2D ctx = c.getContext("2d");
   ctx.clearRect(0, 0, c.width, c.height);
   window.animationFrame.then(renderTreeImpl);
+  // XXX see comment in renderTreeImpl
+  startedRender = true;
 }
 
 void finishRender(ignored_delta) {
   // Change the button text back
   var elt = querySelector("#go");
   elt.text = "Draw!";
+  elt.disabled = false;
 }
 
-void renderTreeImpl(ignored_delta) {
+void renderTreeImpl(delta) {
+
+  // XXX I have no idea why, but without skipping one frame in
+  // Dartium/Chrome/Firefox (not in Safari) I'm getting all updates at once,
+  // i.e. button text is not updated until canvas is redrawn, and then the
+  // button flickers. With ugliness below everything works as intended.
+  if (startedRender) {
+    startedRender = false;
+    window.animationFrame.then(renderTreeImpl);
+    return;
+  }
 
   // Get the parameters
   //
