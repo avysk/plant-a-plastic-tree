@@ -1,0 +1,27 @@
+<link rel="import" href="packages/polymer/polymer.html">
+<polymer-element name="min-max"> <template>
+<style>
+span.min-max-title {
+  font-size: 10pt;
+  font-weight: bold;
+}
+
+input {
+  width: 100%;
+  margin: 0 auto;
+}
+
+div {
+  padding: 10px;
+}
+</style>
+<div>
+  <span class="min-max-title">{{title}}</span> <br> <input
+    class="min-max-min" on-mouse-move="{{changed}}" type="range"
+    min="{{min}}" max="{{max_v}}" value="{{min_v}}" step="{{step}}">
+  <br> <input class="min-max-max" on-mouse-move="{{changed}}"
+    type="range" min="{{min_v}}" max="{{max}}" value="{{max_v}}"
+    step="{{step}}"> <br> <span>Min: {{min}} Max:
+    {{max}} Chosen: {{min_v}}&ndash;{{max_v}}</span>
+</div>
+</template> <script type="application/dart" src="minmax.dart"></script> </polymer-element>

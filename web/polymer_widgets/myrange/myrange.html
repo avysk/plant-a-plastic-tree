@@ -1,0 +1,25 @@
+<link rel="import" href="packages/polymer/polymer.html">
+<polymer-element name="my-range"> <template>
+<style>
+span.title {
+  font-size: 10pt;
+  font-weight: bold;
+}
+
+input {
+  width: 100%;
+  margin: 0 auto;
+}
+
+div {
+  background-color: #F8F8F8;
+  padding: 10px;
+}
+</style>
+<div>
+  <span class="title">{{title}}</span> <br> <input
+    on-mouse-move="{{changed}}" type="range" min="{{min}}" max="{{max}}"
+    value="{{value}}" step="{{step}}"> <br> <span>Min:
+    {{min}} Max: {{max}} Chosen: {{value}}</span>
+</div>
+</template> <script type="application/dart" src="myrange.dart"></script> </polymer-element>

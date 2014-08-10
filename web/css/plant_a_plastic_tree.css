@@ -1,0 +1,48 @@
+body {
+  background-color: #F8F8F8;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 14px;
+  font-weight: normal;
+  line-height: 1.2em;
+}
+
+h1,p {
+  color: #333;
+}
+
+#go {
+  position: fixed;
+  bottom: 5px;
+  right: 5px;
+  height: 50px;
+  width: 50px;
+  border: 1px solid;
+  background-color: #DDDDDD;
+  font-weight: bold;
+  z-index: 2;
+}
+
+#c {
+  position: fixed;
+  top: 5px;
+  left: 415px;
+  border: 1px solid;
+  z-index: 1;
+}
+
+#info {
+  position: fixed;
+  bottom: 5px;
+  right: 65px;
+  width: 150px;
+  z-index: 2;
+}
+
+#settings {
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  margin-bottom: 5px;
+  width: 400px;
+  border: 1px solid;
+}
