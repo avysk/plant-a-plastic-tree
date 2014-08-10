@@ -29,7 +29,7 @@
 
     <div>
       <min-max id="levels" title="Number of levels" min="1" max="8"
-        min_v="3" max_v="6"> </min-max>
+        min_v="3" max_v="6" integer="true"> </min-max>
     </div>
 
     <div>
@@ -39,12 +39,12 @@
 
     <div>
       <min-max id="branches" title="Number of branches" min="1" max="15"
-        min_v="3" max_v="9"></min-max>
+        min_v="3" max_v="9" integer="true"></min-max>
     </div>
 
     <div>
       <min-max id="angles" title="Angle of branches" min="0" max="90"
-        min_v="5" max_v="35"></min-max>
+        min_v="5" max_v="35" integer="true"></min-max>
     </div>
 
     <div>
@@ -86,6 +86,10 @@
     <div>
       <min-max id="blue" title="Blue in leaves" min="0" max="1"
         value="1" step="0.05"></min-max>
+    </div>
+
+    <div align="center">
+      <button id="rand">Randomize values</button>
     </div>
 
   </div>

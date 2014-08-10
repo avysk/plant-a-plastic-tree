@@ -9,6 +9,7 @@ int branchesDrawn = 0;
 
 void main() {
   querySelector("#go").onClick.listen(renderTree);
+  querySelector("#rand").onClick.listen(randomizeOptions);
   initPolymer();
 
   // Looks like we have a bug in Chromium; range inputs with step not equal
@@ -261,4 +262,13 @@ void setRandomColor(CanvasRenderingContext2D ctx, colors) {
 
 void emergencyMessage() {
   window.alert("Stopped after $MAX_BRANCHES branches.");
+}
+
+void randomizeOptions(e) {
+  for (var id in ["levels", "prob", "branches", "angles", "mult",
+                  "cont", "contmult", "smooth0", "smooth1",
+                  "red", "green", "blue"]) {
+    var elt = querySelector("#$id");
+    elt.randomize(r);
+  }
 }
