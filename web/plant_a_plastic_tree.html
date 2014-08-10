@@ -33,7 +33,7 @@
 
     <div>
       <my-range id="prob" title="Probability of non-branching" min="0.0"
-        max="1.0" value="0.2" step="0.1"> </my-range>
+        max="1.0" value="0.2" step="0.05"> </my-range>
     </div>
 
     <div>
@@ -52,28 +52,37 @@
     </div>
 
     <div>
+      <my-range id="cont" title="Probability that the branch continues" min="0.0" max="1.0" step="0.05" value="0.1"></my-range>
+    </div>
+
+    <div>
+      <min-max id="contmult" title="Length multiplier for continuing branches" min="0.05" max="0.95"
+      min_v="0.4" max_v="0.6" step="0.05"></min-max>
+    </div>
+
+    <div>
       <my-range id="smooth0" title="Branches smoothness factor (bottom)" min="0.0"
-        max="1.0" value="0.0" step="0.1"> </my-range>
+        max="1.0" value="0.0" step="0.05"> </my-range>
     </div>
 
     <div>
       <my-range id="smooth1" title="Branches smoothness factor (top)" min="0.0"
-        max="1.0" value="0.0" step="0.1"> </my-range>
+        max="1.0" value="0.0" step="0.05"> </my-range>
     </div>
 
     <div>
       <min-max id="red" title="Red in leaves" min="0" max="1" value="1"
-        step="0.1"></min-max>
+        step="0.05"></min-max>
     </div>
 
     <div>
       <min-max id="green" title="Green in leaves" min="0" max="1"
-        value="1" step="0.1"></min-max>
+        value="1" step="0.05"></min-max>
     </div>
 
     <div>
       <min-max id="blue" title="Blue in leaves" min="0" max="1"
-        value="1" step="0.1"></min-max>
+        value="1" step="0.05"></min-max>
     </div>
 
   </div> <!-- settings -->

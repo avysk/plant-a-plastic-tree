@@ -20,6 +20,13 @@ void main() {
   elt.min_v = "0.1";
   elt.max_v = "0.65";
 
+  elt = querySelector("#cont");
+  elt.value = "0.8";
+
+  elt = querySelector("#contmult");
+  elt.min_v = "0.5";
+  elt.max_v = "0.8";
+
   elt = querySelector("#smooth0");
   elt.value = "0.3";
 
@@ -83,6 +90,15 @@ void renderTreeImpl(ignored_delta) {
   var multMin = double.parse(elt.min_v);
   var multMax = double.parse(elt.max_v);
 
+  // Probability of continuation
+  elt = querySelector("#cont");
+  var pCont = double.parse(elt.value);
+
+  // Length multiplier for continuation
+  elt = querySelector("#contmult");
+  var contMultMin = double.parse(elt.min_v);
+  var contMultMax = double.parse(elt.max_v);
+
   // Smoothness of branches
   elt = querySelector("#smooth0");
   var lambda0 = double.parse(elt.value);
@@ -109,13 +125,14 @@ void renderTreeImpl(ignored_delta) {
   drawTree(ctx,
       c.width / 2, c.height - 10, // root position
       -math.PI / 2, -math.PI / 2, // start growing up (screen coordinate system!)
-      200.0, // first branch length
+      180.0, // first branch length
       1, // this is the first branch
       nMin, nMax, // number of layers
       pTerm, // probability of non-branching
       branchesMin, branchesMax, // number of branches
       angleMin, angleMax, // angles for branches
       multMin, multMax, // multiplier for branch length
+      pCont, contMultMin, contMultMax, // continuation parameters
       lambda0, lambda1, // smoothness of branches
       colors);
   DateTime end = new DateTime.now();
@@ -128,9 +145,12 @@ void renderTreeImpl(ignored_delta) {
 }
 
 void drawTree(CanvasRenderingContext2D ctx, num x0, num y0,
-num alpha, num alpha0,
-    num branchLength, int n, int nMin, int nMax, num pTerminate, int branchesMin, int
-    branchesMax, num angleMin, num angleMax, num multMin, num multMax,
+    num alpha, num alpha0,
+    num branchLength, int n, int nMin, int nMax,
+    num pTerminate,
+    int branchesMin, int branchesMax, num angleMin, num angleMax,
+    num multMin, num multMax,
+    num pCont, num contMultMin, num contMultMax,
     num lambda0, num lambda1, colors) {
 
   branchesDrawn += 1;
@@ -167,6 +187,16 @@ num alpha, num alpha0,
     ctx.bezierCurveTo(cp0x, cp0y, cp1x, cp1y, x1, y1);
     ctx.stroke();
 
+    // check if we must to continue the branch
+    if (r.nextDouble() <= pCont) {
+      var mult = contMultMin + r.nextDouble() * (contMultMax - contMultMin);
+      drawTree(ctx, x1, y1, alpha, alpha, branchLength * mult,
+          n + 1, nMin, nMax, pTerminate, branchesMin, branchesMax,
+          angleMin, angleMax, multMin, multMax,
+          pCont, contMultMin, contMultMax,
+          lambda0, lambda1, colors);
+    }
+
     // terminate if we must
     if ((n > nMin) && (r.nextDouble() < pTerminate)) {
       drawLeaf(ctx, x1, y1, nMax - n + 1, colors);
@@ -187,9 +217,9 @@ num alpha, num alpha0,
       drawTree(ctx, x1, y1, alpha + beta, alpha, branchLength * mult, n + 1, nMin,
           nMax, pTerminate, branchesMin, branchesMax, angleMin, angleMax, multMin,
           multMax,
+          pCont, contMultMin, contMultMax,
           lambda0, lambda1, colors);
     }
-
   }
 }
 
