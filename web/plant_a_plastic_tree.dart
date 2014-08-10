@@ -40,6 +40,22 @@ void main() {
 }
 
 void renderTree(e) {
+  // Change the button text
+  var elt = querySelector("#go");
+  elt.text = "Wait!";
+  var c = querySelector("#c");
+  CanvasRenderingContext2D ctx = c.getContext("2d");
+  ctx.clearRect(0, 0, c.width, c.height);
+  window.animationFrame.then(renderTreeImpl);
+}
+
+void finishRender(ignored_delta) {
+  // Change the button text back
+  var elt = querySelector("#go");
+  elt.text = "Draw!";
+}
+
+void renderTreeImpl(ignored_delta) {
 
   // Get the parameters
   //
@@ -107,6 +123,8 @@ void renderTree(e) {
 
   var info = querySelector("#info");
   info.text ="Branches: $branchesDrawn Elapsed time: ${elapsed.inSeconds}s";
+
+  window.animationFrame.then(finishRender);
 }
 
 void drawTree(CanvasRenderingContext2D ctx, num x0, num y0,
